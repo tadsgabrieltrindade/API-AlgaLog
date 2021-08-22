@@ -8,4 +8,8 @@
 - MySQL Driver
 - Flyway Migration - *Deve criar uma pasta e subpasta: db/migration e, dentro dessa pasta, deve colocar arquivos .sql em um dos formatos:*
 V001__<descrição>
-V20210821__<descriçã>
+V20210821__<descrição>
+- Validation (Jakarta Bean Valiation)
+
+## Diagrama de classe
+![diagrama](diagrama.jpg)
