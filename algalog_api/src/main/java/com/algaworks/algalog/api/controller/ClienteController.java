@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algalog.domain.model.Cliente;
 import com.algaworks.algalog.domain.repository.ClienteRepository;
+import com.algaworks.algalog.domain.servece.CatalogoClienteService;
 
 import lombok.AllArgsConstructor;
 
@@ -34,6 +35,7 @@ public class ClienteController {
 	// poderia ter @Autowired caso não tivesse o @AllargsConstructor
 	// que define que queremos injetar uma instancia que está sendo gerenciada pelo Spring
 	private ClienteRepository clienteRepository;
+	private CatalogoClienteService catalogoClienteService;
 	
 	@GetMapping //mapeamento desse método
 	public List<Cliente> listar() {
@@ -58,7 +60,7 @@ public class ClienteController {
 	@ResponseStatus(HttpStatus.CREATED) //apresenta o código de retorno "mais certo", digamos o 201
 	public Cliente adicionar(@Valid @RequestBody Cliente cliente) { 
 		//a anotação @Requ... vincula o parametro do método ao corpo da requisição
-		return clienteRepository.save(cliente); 
+		return catalogoClienteService.salvar(cliente); 
 	}
 	
 	@PutMapping("/{clienteId}")
@@ -67,7 +69,7 @@ public class ClienteController {
 			return ResponseEntity.notFound().build();
 		
 		cliente.setId(clienteId); //forço a atualização no cliente com o id passado na uri
-		cliente = clienteRepository.save(cliente);
+		cliente = catalogoClienteService.salvar(cliente);
 		return ResponseEntity.ok(cliente);
 	}
 	
@@ -76,12 +78,11 @@ public class ClienteController {
 	public ResponseEntity<Void> excluir(@PathVariable Long clienteId){ //ResponseEntity<Void> sem corpo na resposta
 		if(!clienteRepository.existsById(clienteId)) 
 			return ResponseEntity.notFound().build();
-		clienteRepository.deleteById(clienteId);
+		catalogoClienteService.excluir(clienteId); 
 		return ResponseEntity.noContent().build(); //código 204 HTTP, retorno ok mas sem conteúdo 
 	}
 	
-	
-	
+	 
 	
 	
 	@GetMapping("/conterExemplo")

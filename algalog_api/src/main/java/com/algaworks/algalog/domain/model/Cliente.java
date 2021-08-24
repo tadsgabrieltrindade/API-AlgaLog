@@ -38,6 +38,6 @@ public class Cliente {
 	@Size(max = 20)
 	@Column(name = "fone") //define que o atributo abaixo tem o nome fone no banco de dados
 	private String telefone;
-	
+
 	 
 }
