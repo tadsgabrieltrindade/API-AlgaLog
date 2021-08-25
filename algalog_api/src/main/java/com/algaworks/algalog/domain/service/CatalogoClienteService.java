@@ -1,4 +1,4 @@
-package com.algaworks.algalog.domain.servece;
+package com.algaworks.algalog.domain.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +13,11 @@ import lombok.AllArgsConstructor;
 @Service //componente do spring e representa serviços que são executados - regras de negócio
 public class CatalogoClienteService {
 	private ClienteRepository clienteRepository;
+	
+	public Cliente buscar(Long clienteId) {
+		return 	clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado!"));
+	}
 	
 	//responsável por adiocionar e atualizar um cliente
 	@Transactional //indica que o método deve ser executado dentro de uma transação. Se algo der errado aqui, todo o resto é descartado (banco de dados)
